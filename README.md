@@ -44,9 +44,8 @@ Got a question about your Spring Framework 5 course? [Checkout these FAQs!](http
 * [Mastering Thymeleaf with Spring Boot](https://www.udemy.com/mastering-thymeleaf-with-spring/?couponCode=GITHUB_REPO_SF5B2G) - Once you learn Thymeleaf, you'll never want to go back to using JSPs for web development!
 
 
-## Connect with Spring Framework Guru
-* Spring Framework Guru [Blog](https://springframework.guru/)
-* Subscribe to Spring Framework Guru on [YouTube](https://www.youtube.com/channel/UCrXb8NaMPQCQkT8yMP_hSkw)
-* Like Spring Framework Guru on [Facebook](https://www.facebook.com/springframeworkguru/)
-* Follow Spring Framework Guru on [Twitter](https://twitter.com/spring_guru)
-* Connect with John Thompson on [LinkedIn](http://www.linkedin.com/in/springguru)
+## Setup
+1. To run MySQL in Docker refer to https://docs.docker.com/guides/databases/#run-a-local-containerized-database
+2. Use DBeaver GUI client to connect to MySQl running in Docker. If you see `Public Key Retrieval is not allowed` error, add following properties:
+   ![image](https://github.com/user-attachments/assets/11e39146-bf35-43d8-b08c-cef839505d0b)
+ 
