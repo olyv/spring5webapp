@@ -47,4 +47,17 @@ class RecordServiceTest {
         assertThrows(IllegalArgumentException.class, () -> service.saveAndCommitOnUnchecked("D"));
         assertEquals(1, service.count());
     }
+
+    @Test
+    void testTransactionalAnnotationOnPrivateMethodIsNotApplied() {
+        assertThrows(RuntimeException.class, () -> service.callPrivateTransactionalMethod("E"));
+        assertEquals(1, service.count());
+    }
+
+    @Test
+    void testSelfInvocationDoesNotApplyRequiresNewPropagation() {
+        assertThrows(RuntimeException.class,
+                () -> service.callRequiresNewMethodAndThrow("outer", "inner"));
+        assertEquals(0, service.count());
+    }
 }

@@ -2,6 +2,7 @@ package com.example.services;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -56,6 +57,28 @@ public class RecordService {
     public void saveAndCommitOnUnchecked(String value) {
         jdbc.update("INSERT INTO records(val) VALUES (?)", value);
         throw new IllegalArgumentException("Unchecked failure without rollback");
+    }
+
+    public void callPrivateTransactionalMethod(String value) {
+        saveAndThrowFromPrivateMethod(value);
+    }
+
+    @Transactional
+    public void callRequiresNewMethodAndThrow(String outerValue, String innerValue) {
+        jdbc.update("INSERT INTO records(val) VALUES (?)", outerValue);
+        saveInNewTransaction(innerValue);
+        throw new RuntimeException("Outer transaction fails");
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveInNewTransaction(String value) {
+        jdbc.update("INSERT INTO records(val) VALUES (?)", value);
+    }
+
+    @Transactional
+    private void saveAndThrowFromPrivateMethod(String value) {
+        jdbc.update("INSERT INTO records(val) VALUES (?)", value);
+        throw new RuntimeException("Private method failure");
     }
 
     public int count() {
